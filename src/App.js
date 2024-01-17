@@ -11,6 +11,13 @@ import {
   View,
   withAuthenticator,
 } from "@aws-amplify/ui-react";
+import {
+  Table,
+  TableCell,
+  TableBody,
+  TableHead,
+  TableRow,
+} from '@aws-amplify/ui-react';
 import { listNotes } from "./graphql/queries";
 import {
   createNote as createNoteMutation,
@@ -76,7 +83,7 @@ const App = ({ signOut }) => {
 
   return (
     <View className="App">
-      <Heading level={1}>Accenture Notes App</Heading>
+      <Heading level={2}marginTop={30}>Accenture Notes App</Heading>
       <View as="form" margin="3rem 0" onSubmit={createNote}>
         <Flex direction="row" justifyContent="center">
           <TextField
@@ -101,38 +108,72 @@ const App = ({ signOut }) => {
             type="file"
             style={{ alignSelf: "end" }}
           />
-          <Button type="submit" variation="primary">
+          <Button type="submit" variation="primary" backgroundColor={'#7500c0'}>
             Create Note
           </Button>
         </Flex>
       </View>
       <Heading level={2}>Current Notes</Heading>
-      <View margin="3rem 0">
+      <View margin="40px auto" width={'90%'}>
+      <Table
+            caption=""
+            highlightOnHover={true}            
+            variation="">
+            <TableHead >
+              <TableRow backgroundColor={'#a100ff'} color={'#fff'}>
+                <TableCell as="th" color={'#fff'}>Note</TableCell>
+                <TableCell as="th" color={'#fff'}>Note Description</TableCell>
+                <TableCell as="th" color={'#fff'}>Action</TableCell>
+              </TableRow>
+            </TableHead>
         {notes.map((note) => (
-          <Flex
-            key={note.id || note.name}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Text as="strong" fontWeight={700}>
-              {note.name}
-            </Text>
-            <Text as="span">{note.description}</Text>
-            {note.image && (
-              <Image
-                src={note.image}
-                alt={`visual aid for ${notes.name}`}
-                style={{ width: 400 }}
-              />
-            )}
-            <Button variation="link" onClick={() => deleteNote(note)}>
-              Delete note
-            </Button>
-          </Flex>
+          // <Flex
+          //   key={note.id || note.name}
+          //   direction="row"
+          //   justifyContent="center"
+          //   alignItems="center"
+          // >
+          //   <Text as="strong" fontWeight={700}>
+          //     {note.name}
+          //   </Text>
+          //   <Text as="span">{note.description}</Text>
+          //   {note.image && (
+          //     <Image
+          //       src={note.image}
+          //       alt={`visual aid for ${notes.name}`}
+          //       style={{ width: 400 }}
+          //     />
+          //   )}
+          //   <Button variation="link" onClick={() => deleteNote(note)}>
+          //     Delete note
+          //   </Button>
+          // </Flex>
+          
+          
+            <TableBody>
+              <TableRow  key={note.id || note.name}>
+                <TableCell>{note.name}</TableCell>
+                <TableCell>{note.description}</TableCell>
+                {note.image && (
+               <TableCell><Image
+                 src={note.image}
+                 alt={`visual aid for ${notes.name}`}
+                 style={{ width: 400 }}
+               /></TableCell>
+             )}
+                <TableCell>
+                <Button variation="link" color={'#7500c0'} onClick={() => deleteNote(note)}>
+                Delete note
+               </Button>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+         
+  
         ))}
+         </Table>
       </View>
-      <Button onClick={signOut}>Sign Out</Button>
+      <Button onClick={signOut} backgroundColor={'#7500c0'} color={'#fff'} marginBottom={20}>Sign Out</Button>
     </View>
   );
 };
