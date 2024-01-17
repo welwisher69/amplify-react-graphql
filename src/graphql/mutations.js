@@ -37,13 +37,12 @@ export const deleteNote = /* GraphQL */ `
     $condition: ModelNoteConditionInput
   ) {
     deleteNote(input: $input, condition: $condition) {
-      console.log("delete note");
+      id
+      name
+      description
+      createdAt
+      updatedAt
+      __typename
     }
   }
 `;
-// id
-//       name
-//       description
-//       createdAt
-//       updatedAt
-//       __typename
