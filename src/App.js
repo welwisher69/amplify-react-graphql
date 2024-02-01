@@ -86,9 +86,9 @@ const App = ({ signOut }) => {
     console.log("generate text")
   }
   return (
-    <View className="App container-fluid">
-      <Header />
-      <Heading level={2}marginTop={30}>Accenture Notes </Heading>
+    <View className="App">
+    <Header />
+      <Heading level={2}marginTop={30}>Accenture Notes App</Heading>
       <View as="form" margin="3rem 0" onSubmit={createNote}>
         <Flex direction="row" justifyContent="center">
           <TextField
