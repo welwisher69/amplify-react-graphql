@@ -25,6 +25,7 @@ import {
 } from "./graphql/mutations";
 import { generateClient } from 'aws-amplify/api';
 import { uploadData, getUrl, remove } from 'aws-amplify/storage';
+import Header from "./Header";
 
 const client = generateClient();
 
@@ -81,9 +82,13 @@ const App = ({ signOut }) => {
     });
   }
 
+  async function generateText() {
+    console.log("generate text")
+  }
   return (
-    <View className="App">
-      <Heading level={2}marginTop={30}>Accenture Notes App</Heading>
+    <View className="App container-fluid">
+      <Header />
+      <Heading level={2}marginTop={30}>Accenture Notes </Heading>
       <View as="form" margin="3rem 0" onSubmit={createNote}>
         <Flex direction="row" justifyContent="center">
           <TextField
@@ -102,16 +107,27 @@ const App = ({ signOut }) => {
             variation="quiet"
             required
           />
-          <View
+          <div className="upload-btn-wrapper">
+            <button className="btn">Upload a file</button>
+            <input type="file" name="image"
+            />
+          </div>
+          {/* <View
             name="image"
             as="input"
             type="file"
             style={{ alignSelf: "end" }}
-          />
-          <Button type="submit" variation="primary" backgroundColor={'#7500c0'}>
+          /> */}
+          <Button type="submit" variation="primary" backgroundColor={'#7500c0'}fontWeight={400}fontSize={'18px'}>
             Create Note
           </Button>
+          
         </Flex>
+      </View>
+      <View>
+      {/* <Button type="submit" variation="primary" backgroundColor={'#7500c0'} onClick={() => generateText()}>
+            Generate Text
+          </Button> */}
       </View>
       <Heading level={2}>Current Notes</Heading>
       <View margin="40px auto" width={'90%'}>
@@ -126,6 +142,7 @@ const App = ({ signOut }) => {
                 <TableCell as="th" color={'#fff'}>Action</TableCell>
               </TableRow>
             </TableHead>
+            <TableBody>
         {notes.map((note) => (
           // <Flex
           //   key={note.id || note.name}
@@ -150,10 +167,10 @@ const App = ({ signOut }) => {
           // </Flex>
           
           
-            <TableBody>
+           
               <TableRow  key={note.id || note.name}>
                 <TableCell>{note.name}</TableCell>
-                <TableCell>{note.description}</TableCell>
+                <TableCell>{note.description}</TableCell> 
                 {note.image && (
                <TableCell><Image
                  src={note.image}
@@ -167,12 +184,14 @@ const App = ({ signOut }) => {
                </Button>
                 </TableCell>
               </TableRow>
-            </TableBody>
+           
          
   
         ))}
+         </TableBody>
          </Table>
       </View>
+      
       <Button onClick={signOut} backgroundColor={'#7500c0'} color={'#fff'} marginBottom={20}>Sign Out</Button>
     </View>
   );
