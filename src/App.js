@@ -83,7 +83,7 @@ const App = ({ signOut }) => {
 
   return (
     <View className="App">
-      <Heading level={2}marginTop={30}>Accenture Notes App</Heading>
+      <Heading level={2}marginTop={30}>Accenture App</Heading>
       <View as="form" margin="3rem 0" onSubmit={createNote}>
         <Flex direction="row" justifyContent="center">
           <TextField
